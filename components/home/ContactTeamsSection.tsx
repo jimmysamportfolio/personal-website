@@ -14,7 +14,7 @@ const experience = [
   {
     company: "Advizr",
     title: "Software Engineer",
-    description: "Shipping agentic AI and RAG products to small businesses.",
+    description: "Building AI and RAG products to small businesses.",
     website: "https://advizr.ca/",
     period: "2025 - Present",
     colors: "bg-[#3b3b3b]",
@@ -40,9 +40,22 @@ const leadership = [
   },
 ];
 
+const education = [
+  {
+    school: "UBC Sauder School of Business",
+    degree: "CS + Business",
+    description: "GPA: 4.31/4.33 (Ranked 4/794 in class), Presidential Scholar ($60,000).",
+    website: "https://www.sauder.ubc.ca/",
+    period: "2024 - 2028",
+    colors: "bg-[#002145]",
+  },
+];
+
 export default function ContactTeamsSection() {
   return (
     <div className="w-full space-y-4">
+
+      {/*Contact*/}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <div className="flex items-center mb-2">
@@ -64,6 +77,41 @@ export default function ContactTeamsSection() {
         </div>
       </div>
 
+      {/*Education*/}
+      <div className="w-full border-t border-dashed border-muted-foreground/20" />
+
+      <div>
+        <div className="flex items-center mb-3">
+          <h2 className="text-sm font-medium">Education</h2>
+        </div>
+        <div className="space-y-3">
+          {education.map((item) => (
+            <a
+              key={item.school}
+              href={item.website}
+              target="_blank"
+              className="block text-sm group"
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <div
+                    className={`w-1.5 h-1.5 mt-0.5 shrink-0 aspect-square ${item.colors} group-hover:opacity-80`}
+                  />
+                  <span className="group-hover:text-muted-foreground font-medium">{item.degree}</span>
+                  <span className="text-muted-foreground">&middot;</span>
+                  <span className="group-hover:text-muted-foreground">
+                    {item.school}
+                  </span>
+                </div>
+                <span className="group-hover:text-muted-foreground shrink-0">{item.period}</span>
+              </div>
+              <p className="ml-[22px] -mt-0.5 text-xs text-muted-foreground leading-snug">{item.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/*Experience*/}
       <div className="w-full border-t border-dashed border-muted-foreground/20" />
 
       <div>
@@ -97,6 +145,7 @@ export default function ContactTeamsSection() {
         </div>
       </div>
 
+      {/*Leadership*/}
       <div className="w-full border-t border-dashed border-muted-foreground/20" />
 
       <div>
@@ -129,6 +178,8 @@ export default function ContactTeamsSection() {
           ))}
         </div>
       </div>
+
+      
     </div>
   );
 }

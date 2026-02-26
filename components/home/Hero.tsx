@@ -8,18 +8,14 @@ export default function Hero() {
       </div>
       <div className="w-full space-y-4 text-sm tracking-tight">
         <p>
-          {"Currently a SWE at "}
-          <Link href="https://advizr.ca/" target="_blank" className="hover:underline hover:text-muted-foreground text-muted-foreground/80">
-            {"Advizr"}
-          </Link>
-          {" where I ship agentic AI and RAG products to small businesses. Also a Partnerships Director at "}
-          <Link href="https://www.ubcbiztech.com/" target="_blank" className="hover:underline hover:text-muted-foreground text-muted-foreground/80">
-            {"UBC BizTech"}
-          </Link>
-          {" (800+ members)."}
+          {"I like building things, breaking into new spaces, and figuring stuff out as I go. Right now that looks like shipping AI products at Advizr, running events at BizTech, and studying business + CS at UBC."}
         </p>
         <p>
-          {"Interested in startups, agentic AI, and sports."}
+          {"Here's what I've been working on. Or, you can "}
+          <Link href="/about" className="hover:underline hover:text-muted-foreground text-muted-foreground/80">
+            {"read my story"}
+          </Link>
+          {"."}
         </p>
       </div>
     </div>
