@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# jimmy.s
+
+Personal portfolio site for Jimmy Sam. Built with Next.js 16, MDX, Tailwind CSS, and Framer Motion.
 
 ## Getting Started
 
-First, run the development server:
+This project uses **pnpm** as its package manager.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Install dependencies
+pnpm install
+
+# Start the dev server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `content/` — Project pages written in MDX
+- `components/` — React components
+- `app/` — Next.js App Router pages
+- `public/projects/` — Project images and videos
+- `constants/` — Tag definitions and configuration
 
-## Learn More
+## Adding a Project
 
-To learn more about Next.js, take a look at the following resources:
+Create a new `.mdx` file in `content/` with metadata (title, role, description, tags, image) and markdown content. The project will automatically appear on the homepage.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deploy with [Vercel](https://vercel.com):
 
-## Deploy on Vercel
+```bash
+pnpm build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Credits
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Portfolio template originally built by [Ethan Hansen](https://github.com/ethan-t-hansen). Customized and adapted by Jimmy Sam.
