@@ -8,46 +8,31 @@ import { SiteNavbar } from "@/components/SiteNavbar";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Ethan Hansen",
-    default: "Ethan Hansen",
+    template: "%s | Jimmy Sam",
+    default: "Jimmy Sam",
   },
   description:
-    "Ethan's Design Engineer Portfolio - showcasing design, engineering, and business projects with a focus on creativity and innovation.",
+    "Jimmy's Software Engineering Portfolio - showcasing software engineering, AI, and startup projects.",
   keywords: [
-    "Ethan",
-    "Hansen",
+    "Jimmy",
+    "Sam",
     "Portfolio",
-    "Design",
+    "Software",
     "Engineering",
-    "Business",
+    "AI",
   ],
   openGraph: {
-    title: "Ethan's Portfolio",
+    title: "Jimmy's Portfolio",
     description:
-      "Showcasing design, engineering, and business projects with creativity and innovation.",
-    url: "https://www.ethanthansen.com",
-    siteName: "Ethan's Portfolio",
-    images: [
-      {
-        url: "https://rvkf0y9jdjpjjuzl.public.blob.vercel-storage.com/ethan-portfolio.png",
-        width: 1200,
-        height: 630,
-        alt: "Ethan's Portfolio Preview",
-      },
-    ],
+      "Software engineering, AI, and startup projects by Jimmy Sam.",
+    siteName: "Jimmy's Portfolio",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ethan's Portfolio",
-    description: "Design, engineering, and business projects by Ethan.",
-    images: [
-      "https://rvkf0y9jdjpjjuzl.public.blob.vercel-storage.com/portfolio-preview.png",
-    ],
-  },
-  alternates: {
-    canonical: "https://www.ethanthansen.com",
+    title: "Jimmy's Portfolio",
+    description: "Software engineering, AI, and startup projects by Jimmy Sam.",
   },
 };
 

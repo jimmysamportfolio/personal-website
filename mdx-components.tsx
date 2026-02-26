@@ -48,6 +48,23 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
       folder: string;
       direction?: "left" | "right";
     }) => <ImageMarquee folder={folder} direction={direction} />,
+    YouTube: ({ id, caption }: { id: string; caption?: string }) => (
+      <div className="my-12">
+        <div className="relative w-full overflow-hidden" style={{ paddingBottom: "56.25%" }}>
+          <iframe
+            src={`https://www.youtube.com/embed/${id}`}
+            title={caption || "YouTube video"}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 h-full w-full border-0"
+          />
+        </div>
+        {caption && (
+          <p className="text-xs text-muted-foreground mt-2">{caption}</p>
+        )}
+      </div>
+    ),
+
     SectionColumns: ({
       h1,
       h2,

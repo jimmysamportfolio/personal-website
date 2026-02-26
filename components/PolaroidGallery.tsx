@@ -13,32 +13,8 @@ type Polaroid = {
   description: string;
 };
 
-const polaroids: Polaroid[] = [
-  {
-    src: "/about/mt-batur.png",
-    alt: "Mt. Batur",
-    date: "03.01.24",
-    description: "Mt. Batur, Indonesia",
-  },
-  {
-    src: "/about/langkawi.png",
-    alt: "Langkawi",
-    date: "04.10.24",
-    description: "Langkawi, Malaysia",
-  },
-  {
-    src: "/about/death-valley.png",
-    alt: "Death Valley",
-    date: "12.07.24",
-    description: "Death Valley, USA",
-  },
-  {
-    src: "/about/japan.png",
-    alt: "Japan",
-    date: "05.08.25",
-    description: "Meiji Shrine, Japan",
-  },
-];
+// Add your own photos here! Place images in public/about/ and add entries below.
+const polaroids: Polaroid[] = [];
 
 export default function PolaroidGallery() {
   const [hovered, setHovered] = useState<number | null>(null);

@@ -26,27 +26,32 @@ export default function Page() {
           </h3>
           <div className="font-light text-sm space-y-3 text-zinc-900 dark:text-zinc-200 mb-4">
             <p>
-              I&apos;m exploring and building at the intersection of product
-              design and fullstack app development. Currently studying Business
-              + Computer Science at the University of British Columbia.
+              Currently a SWE at{" "}
+              <CustomLink href="https://advizr.ca/">
+                Advizr
+              </CustomLink>
+              , where I ship agentic AI and RAG products to small businesses.
+              I&apos;ve built a custom RAG pipeline, comparison tool, and document
+              generator for a real estate company, as well as an automated parallel
+              data scraper and normalizer for 10,000+ clinics across Canada.
             </p>
             <p>
-              Previously developed enterprise frontend applications for{" "}
-              <CustomLink href="https://icbc.com/" target="_blank">
-                ICBC
+              I&apos;m also a Partnerships Director at{" "}
+              <CustomLink href="https://www.ubcbiztech.com/">
+                UBC BizTech
               </CustomLink>{" "}
-              and established design systems for{" "}
-              <CustomLink href="https://www.momentenergy.com/" target="_blank">
-                Moment Energy
-              </CustomLink>
-              . Studied abroad at the National University of Singapore{" "}
-              <CustomLink href="https://nus.edu.sg/" target="_blank">
-                (NUS)
-              </CustomLink>{" "}
-              in 2024.
+              (800+ members). A few things I&apos;m proud of: getting us a live
+              interview on Global News, securing over $10k in sponsorships/grants,
+              and leading our partnerships team for Kickstart — a startup event
+              with 40+ partners including an a16z partner and YC founders.
+            </p>
+            <p>
+              Currently studying Business + Computer Science at the University of
+              British Columbia. Interested in startups, agentic AI, and sports
+              (volleyball, table tennis, and soccer are my main three).
             </p>
 
-            <p> Here&apos;s a few of my adventures from my undergrad! </p>
+            <p>Here&apos;s a few of my adventures from my undergrad!</p>
           </div>
           <PolaroidGallery />
         </div>
