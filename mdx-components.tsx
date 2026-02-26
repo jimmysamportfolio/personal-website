@@ -32,6 +32,23 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
       </div>
     ),
 
+    Embed: ({ src, caption }: { src: string; caption?: string }) => (
+      <div className="my-12">
+        <div className="relative w-full overflow-hidden" style={{ paddingBottom: "56.25%" }}>
+          <iframe
+            src={src}
+            title={caption || "Embedded video"}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 h-full w-full border-0"
+          />
+        </div>
+        {caption && (
+          <p className="text-xs text-muted-foreground mt-2">{caption}</p>
+        )}
+      </div>
+    ),
+
     YouTube: ({ id, caption }: { id: string; caption?: string }) => (
       <div className="my-12">
         <div className="relative w-full overflow-hidden" style={{ paddingBottom: "56.25%" }}>

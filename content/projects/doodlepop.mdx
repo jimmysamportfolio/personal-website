@@ -1,0 +1,32 @@
+import { LinkType } from "@/app/constants";
+
+export const metadata = {
+  title: "DoodlePop",
+  role: "Backend Developer",
+  type: "Software",
+  description:
+    "Full-stack AR app that transforms 2D doodles into interactive 3D models, rendered on Apple Vision Pro via VisionOS.",
+  date: "2026-02-01",
+  tags: ["SwiftUI"],
+  additionalLinks: [],
+  image: "/projects/doodlepop/cover.png",
+  previewImage: "/projects/doodlepop/cover.png",
+  featured: true,
+  priority: 5,
+};
+
+#### OVERVIEW
+
+# From doodles to 3D, in seconds.
+
+What if a simple sketch on paper could become an interactive 3D model you can hold in your hands — or see floating in the room around you?
+
+DoodlePop is a full-stack AR application that transforms 2D doodles into interactive 3D models. The app was built using SwiftUI, Firebase, FastAPI, and Tripo3D to create a seamless 3D modeling pipeline.
+
+## Bringing sketches to life on Apple Vision Pro.
+
+The pipeline works end-to-end: capture a doodle, process it through the backend, generate a 3D model via Tripo3D, and render it in augmented reality using VisionOS on the Apple Vision Pro.
+
+#### TECH STACK
+
+The backend is powered by FastAPI for the processing pipeline, Firebase for real-time data sync and storage, and Tripo3D for the 2D-to-3D model generation. The frontend uses SwiftUI with VisionOS to display the rendered 3D models in an immersive AR environment.

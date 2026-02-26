@@ -33,7 +33,7 @@ export default async function Page({
   let metadata: PostMetadata;
 
   try {
-    const mod = await import(`@/content/${slug}.mdx`);
+    const mod = await import(`@/content/projects/${slug}.mdx`);
     Post = mod.default;
     metadata = mod.metadata;
   } catch (err) {

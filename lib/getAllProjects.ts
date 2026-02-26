@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const CONTENT_DIR = path.join(process.cwd(), "content");
+const CONTENT_DIR = path.join(process.cwd(), "content", "projects");
 
 export async function getAllProjects() {
   const files = fs
@@ -12,7 +12,7 @@ export async function getAllProjects() {
     files.map(async (filename) => {
       const slug = filename.replace(/\.mdx$/, "");
 
-      const { metadata } = await import(`@/content/${slug}.mdx`);
+      const { metadata } = await import(`@/content/projects/${slug}.mdx`);
       return {
         slug,
         ...metadata,

@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <div className="w-full flex flex-col justify-center items-start text-[#3b3b3b]">
       <div className="flex flex-col gap-2 text-xl font-medium tracking-tight mb-4 w-full">
-        {"Jimmy's archive."}
+        {"Jimmy's portfolio."}
       </div>
       <div className="w-full space-y-4 text-sm tracking-tight">
         <p>
