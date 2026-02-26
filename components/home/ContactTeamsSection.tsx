@@ -83,7 +83,7 @@ export default function ContactTeamsSection() {
                   <div
                     className={`w-1.5 h-1.5 mt-0.5 shrink-0 aspect-square ${exp.colors} group-hover:opacity-80`}
                   />
-                  <span className="font-medium">{exp.title}</span>
+                  <span className="group-hover:text-muted-foreground font-medium">{exp.title}</span>
                   <span className="text-muted-foreground">&middot;</span>
                   <span className="group-hover:text-muted-foreground">
                     {exp.company}
@@ -116,7 +116,7 @@ export default function ContactTeamsSection() {
                   <div
                     className={`w-1.5 h-1.5 mt-0.5 shrink-0 aspect-square ${item.colors} group-hover:opacity-80`}
                   />
-                  <span className="font-medium">{item.title}</span>
+                  <span className="group-hover:text-muted-foreground font-medium">{item.title}</span>
                   <span className="text-muted-foreground">&middot;</span>
                   <span className="group-hover:text-muted-foreground">
                     {item.company}

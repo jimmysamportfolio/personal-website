@@ -1,15 +1,15 @@
 import { ExternalLink } from "@/app/constants";
-import Footer from "@/components/Footer";
-import ProjectLinkButton from "@/components/ProjectLinkButton";
+import Footer from "@/components/layout/Footer";
+import ProjectLinkButton from "@/components/project/ProjectLinkButton";
 import { getMDXComponents } from "@/mdx-components";
 import { MDXContent } from "mdx/types";
 import type { Metadata } from "next/types";
-import MediaPreview from "@/components/MediaPreview";
+import MediaPreview from "@/components/project/MediaPreview";
 import { notFound } from "next/navigation";
-import { ProjectTag } from "@/components/ProjectTag";
-import ScrollToTop from "@/components/ScrollToTop";
+import { ProjectTag } from "@/components/project/ProjectTag";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 import { Link } from "lucide-react";
-import { PageLoadCascade } from "@/components/PageLoadCascade";
+import { PageLoadCascade } from "@/components/layout/PageLoadCascade";
 
 export type PostMetadata = Metadata & {
   title: string;

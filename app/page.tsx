@@ -1,8 +1,8 @@
-import ContactTeamsSection from "@/components/ContactTeamsSection";
-import Footer from "@/components/Footer";
-import Hero from "@/components/Hero";
-import { PageLoadCascade } from "@/components/PageLoadCascade";
-import ProjectGrid from "@/components/ProjectGrid";
+import ContactTeamsSection from "@/components/home/ContactTeamsSection";
+import Footer from "@/components/layout/Footer";
+import Hero from "@/components/home/Hero";
+import { PageLoadCascade } from "@/components/layout/PageLoadCascade";
+import ProjectGrid from "@/components/home/ProjectGrid";
 
 export default function Page() {
   return (

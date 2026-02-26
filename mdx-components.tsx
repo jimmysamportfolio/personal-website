@@ -1,6 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
-import ClientVideo from "./components/ClientVideo";
+import ClientVideo from "./components/project/ClientVideo";
 import { cn } from "./lib/utils";
 
 interface MDXImageProps extends ImageProps {

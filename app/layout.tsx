@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import type React from "react";
 import { Toaster } from "sonner"
 import { crimsonPro } from "@/lib/fonts";
-import { SiteNavbar } from "@/components/SiteNavbar";
+import { SiteNavbar } from "@/components/layout/SiteNavbar";
 
 export const metadata: Metadata = {
   title: {

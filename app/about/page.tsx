@@ -1,5 +1,5 @@
-import { PageLoadCascade } from "@/components/PageLoadCascade";
-import PolaroidGallery from "@/components/PolaroidGallery";
+import { PageLoadCascade } from "@/components/layout/PageLoadCascade";
+import PolaroidGallery from "@/components/about/PolaroidGallery";
 import { cn } from "@/lib/utils";
 
 type CustomLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;

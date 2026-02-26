@@ -1,4 +1,4 @@
-import ProjectLinkButton from "@/components/ProjectLinkButton";
+import ProjectLinkButton from "@/components/project/ProjectLinkButton";
 import DecryptedText from "@/components/text-effects/DecryptedText";
 import { HomeIcon } from "lucide-react";
 import Image from "next/image";

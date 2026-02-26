@@ -7,7 +7,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import MediaPreview from "./MediaPreview";
+import MediaPreview from "@/components/project/MediaPreview";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
