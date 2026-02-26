@@ -59,7 +59,7 @@ export default function ContactTeamsSection() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <div className="flex items-center mb-2">
-            <h2 className="text-sm font-medium">Contact</h2>
+            <h2 className="text-sm font-medium">contact</h2>
           </div>
           <div className="flex items-center gap-4">
             {contactLinks.map((link) => (
@@ -82,7 +82,7 @@ export default function ContactTeamsSection() {
 
       <div>
         <div className="flex items-center mb-3">
-          <h2 className="text-sm font-medium">Education</h2>
+          <h2 className="text-sm font-medium">education</h2>
         </div>
         <div className="space-y-3">
           {education.map((item) => (
@@ -116,7 +116,7 @@ export default function ContactTeamsSection() {
 
       <div>
         <div className="flex items-center mb-3">
-          <h2 className="text-sm font-medium">Experience</h2>
+          <h2 className="text-sm font-medium">experience</h2>
         </div>
         <div className="space-y-3">
           {experience.map((exp) => (
@@ -150,7 +150,7 @@ export default function ContactTeamsSection() {
 
       <div>
         <div className="flex items-center mb-3">
-          <h2 className="text-sm font-medium">Leadership</h2>
+          <h2 className="text-sm font-medium">leadership</h2>
         </div>
         <div className="space-y-3">
           {leadership.map((item) => (

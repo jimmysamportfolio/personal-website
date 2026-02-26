@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+
 
 const menuItems = [
   { href: "/about", label: "about" },
@@ -67,12 +67,9 @@ export function SiteNavbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                target={item.external ? "_blank" : undefined}
-                rel={item.external ? "noopener noreferrer" : undefined}
                 className="inline-flex items-center gap-0.5 hover:opacity-70 transition-opacity"
               >
                 {item.label}
-                {item.external && <ArrowUpRight size={8} className="mb-1"/>}
               </Link>
             ))}
           </nav>
@@ -128,12 +125,9 @@ export function SiteNavbar() {
                     <Link
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      target={item.external ? "_blank" : undefined}
-                      rel={item.external ? "noopener noreferrer" : undefined}
                       className="inline-flex items-center gap-1 text-4xl"
                     >
                       {item.label}
-                      {item.external && <ArrowUpRight size={16}/>}
                     </Link>
                   </motion.div>
                 ))}
