@@ -59,7 +59,7 @@ export function SiteNavbar() {
       <header className="py-4">
         <div className="px-6 mx-0 sm:px-0 sm:mx-auto w-full flex h-14 max-w-[571px] items-center justify-between text-sm text-[#3b3b3b]">
           <Link href="/" className="hover:opacity-70 transition-opacity">
-            jimmy.s
+            jimmy.sam
           </Link>
 
           <nav className="hidden items-center gap-8 sm:flex">
