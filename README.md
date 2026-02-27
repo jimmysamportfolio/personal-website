@@ -2,8 +2,6 @@
 
 Personal portfolio site for Jimmy Sam. Built with Next.js 16, MDX, Tailwind CSS, and Framer Motion. 
 
-Inspired by Ethan Hansen's design portfolio. 
-
 ## Getting Started
 
 This project uses **pnpm** as its package manager.
