@@ -3,10 +3,18 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
 
 const menuItems = [
   { href: "/about", label: "about" },
+];
+
+const contactLinks = [
+  { label: "GitHub", href: "https://github.com/jimmysamportfolio" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/jimmy-sam-13b7b8297/" },
+  { label: "Email", href: "mailto:jimmygsam@gmail.com" },
+  { label: "X", href: "https://x.com/__JimmySam__" },
 ];
 
 export function SiteNavbar() {
@@ -62,7 +70,21 @@ export function SiteNavbar() {
             jimmy.sam
           </Link>
 
-          <nav className="hidden items-center gap-8 sm:flex">
+          <div className="hidden items-center gap-4 sm:flex">
+            {contactLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                className="inline-flex items-center gap-0.5 hover:opacity-70 transition-opacity"
+              >
+                {link.label}
+                <ArrowUpRight size={10} />
+              </Link>
+            ))}
+          </div>
+
+          <nav className="hidden items-center gap-4 sm:flex">
             {menuItems.map((item) => (
               <Link
                 key={item.href}
@@ -128,6 +150,26 @@ export function SiteNavbar() {
                       className="inline-flex items-center gap-1 text-4xl"
                     >
                       {item.label}
+                    </Link>
+                  </motion.div>
+                ))}
+                {contactLinks.map((link, index) => (
+                  <motion.div
+                    key={link.label}
+                    custom={menuItems.length + index}
+                    variants={menuItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                  >
+                    <Link
+                      href={link.href}
+                      target="_blank"
+                      onClick={() => setIsOpen(false)}
+                      className="inline-flex items-center gap-2 text-4xl"
+                    >
+                      {link.label}
+                      <ArrowUpRight size={20} />
                     </Link>
                   </motion.div>
                 ))}

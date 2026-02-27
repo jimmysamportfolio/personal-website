@@ -1,28 +1,25 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
-import Link from "next/link";
-
-const contactLinks = [
-  { label: "GitHub", href: "https://github.com/jimmysamportfolio" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/jimmy-sam-13b7b8297/" },
-  { label: "Email", href: "mailto:jimmygsam@gmail.com" },
-  { label: "X", href: "https://x.com/__JimmySam__"}
-];
 
 const experience = [
   {
     company: "Advizr",
     title: "Software Engineer",
-    description: "Building AI and RAG products to small businesses.",
+    description: [
+      "Built a hybrid RAG pipeline for 100+ leases, achieving 90% retrieval precision and sub-400ms p95 latency.",
+      "Built a specialized jane app scraping pipeline for 10,000+ clinics scaled Canada-wide.",
+    ],
     website: "https://advizr.ca/",
     period: "2025 - Present",
     colors: "bg-[#3b3b3b]",
   },
   {
     company: "Pit Stop Portables",
-    title: "Technical Operations",
-    description: "Managed technical operations and logistics systems.",
+    title: "Technical Operations Specialist",
+    description: [
+      "Recovered $2k/day in lost revenue via automated billing reconciliation.",
+      "Cut compute costs 30% by migrating unnecessary cron jobs to AWS Lambda.",
+    ],
     website: "https://www.pitstopportables.com/",
     period: "2025",
     colors: "bg-[#2a7dd6]",
@@ -33,7 +30,10 @@ const leadership = [
   {
     company: "UBC BizTech",
     title: "Partnerships Director",
-    description: "Secured 40+ partners and $10k+ in sponsorships for flagship events.",
+    description: [
+      "Secured 40+ partners and $10k+ in sponsorships for flagship events.",
+      "Got us a live interview on global news."
+    ],
     website: "https://www.ubcbiztech.com/",
     period: "2025 - Present",
     colors: "bg-[#6c5ce7]",
@@ -55,30 +55,7 @@ export default function ContactTeamsSection() {
   return (
     <div className="w-full space-y-4">
 
-      {/*Contact*/}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <div className="flex items-center mb-2">
-            <h2 className="text-sm font-medium">contact</h2>
-          </div>
-          <div className="flex items-center gap-4">
-            {contactLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                className="flex items-center gap-0.5 group hover:text-muted-foreground text-sm"
-              >
-                <span>{link.label}</span>
-                <ArrowUpRight className="w-3 h-3" />
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/*Education*/}
-      <div className="w-full border-t border-dashed border-muted-foreground/20" />
 
       <div>
         <div className="flex items-center mb-3">
@@ -139,7 +116,11 @@ export default function ContactTeamsSection() {
                 </div>
                 <span className="group-hover:text-muted-foreground shrink-0">{exp.period}</span>
               </div>
-              <p className="ml-[22px] -mt-0.5 text-xs text-muted-foreground leading-snug">{exp.description}</p>
+              <div className="ml-[22px] -mt-0.5 text-xs text-muted-foreground leading-snug">
+                {Array.isArray(exp.description)
+                  ? exp.description.map((line, i) => <p key={i}>{line}</p>)
+                  : <p>{exp.description}</p>}
+              </div>
             </a>
           ))}
         </div>
@@ -173,7 +154,11 @@ export default function ContactTeamsSection() {
                 </div>
                 <span className="group-hover:text-muted-foreground shrink-0">{item.period}</span>
               </div>
-              <p className="ml-[22px] -mt-0.5 text-xs text-muted-foreground leading-snug">{item.description}</p>
+              <div className="ml-[22px] -mt-0.5 text-xs text-muted-foreground leading-snug">
+                {Array.isArray(item.description)
+                  ? item.description.map((line, i) => <p key={i}>{line}</p>)
+                  : <p>{item.description}</p>}
+              </div>
             </a>
           ))}
         </div>
