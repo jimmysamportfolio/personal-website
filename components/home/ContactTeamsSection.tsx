@@ -42,7 +42,7 @@ const leadership = [
 
 const education = [
   {
-    school: "UBC Sauder School of Business",
+    school: "UBC",
     degree: "CS + Business",
     description: "GPA: 4.31/4.33 (Ranked 4/794 in class), Presidential Scholar ($60,000).",
     website: "https://www.sauder.ubc.ca/",
