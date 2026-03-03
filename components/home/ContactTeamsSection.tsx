@@ -6,7 +6,7 @@ const experience = [
     company: "Advizr",
     title: "Software Engineer",
     description: [
-      "Built a hybrid RAG pipeline for 100+ leases, achieving 90% retrieval precision and sub-400ms p95 latency.",
+      "Built a hybrid RAG pipeline for 100+ leases, saving 5-10 hours per week of manual checking.",
       "Built a specialized jane app scraping pipeline for 10,000+ clinics scaled Canada-wide.",
     ],
     website: "https://advizr.ca/",
