@@ -1,8 +1,8 @@
 # jimmy.s
 
-Personal portfolio site for Jimmy Sam. Built with Next.js 16, MDX, Tailwind CSS, and Framer Motion. 
+Personal portfolio site for Jimmy Sam. This site is live at https://jimmysam.ca
 
-Inspired by Ethan Hansen's design portfolio. 
+Built with Next.js 16, MDX, Tailwind CSS, and Framer Motion. 
 
 ## Getting Started
 
