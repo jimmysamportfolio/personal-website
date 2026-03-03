@@ -1,0 +1,84 @@
+export const metadata = {
+  title: "Legal Lease RAG & Insights Engine",
+  role: "Full Stack Software Engineer",
+  type: "Software",
+  description:
+    "Production RAG pipeline for 100+ commercial real estate leases. Custom-built at Advizr.",
+  date: "2026-01-01",
+  tags: ["Python", "RAG", "LangChain", "LlamaParse", "Pinecone", "Gemini"],
+  additionalLinks: [],
+  image: "/projects/RAG-pipeline/document-ingestion-end.png",
+  previewImage: "/projects/RAG-pipeline/document-ingestion-end.png",
+  featured: true,
+  priority: 1,
+};
+
+#### OVERVIEW
+
+# A RAG pipeline built for a real estate company at Advizr. 
+
+This was a client project for a real estate company managing 100+ commercial leases. Because the implementation is proprietary and custom to their legal documents, I can't share the codebase. 
+
+But I'm proud of the architecture I designed, and I wanted to document the process. 
+
+## The objective: reduce time spent searching and comparing.
+
+The client needed three capabilities from a single system:
+
+1. **Specific Q&A** — "What is the holdover rate for Starbucks?"
+2. **Clause Comparison** — "Compare the assignment clause in Lease A vs. Lease B."
+3. **Portfolio Insights** — "What is the total base rent across all properties?" (structured aggregation)
+
+Core constraints: **accuracy over latency** (legal documents demand precision), and **scale.** Each lease can run ~25k words without truncation. The system had to prevent semantic drift—confusing distinct legal terms—while staying cost-effective.
+
+#### DESIGN DECISIONS
+
+Before building, I noted down high-level architecture and key design decisions. 
+
+<Image src="/projects/RAG-pipeline/design-decisions.png" alt="RAG pipeline design decisions and architecture notes" width={1200} height={800} caption="Design notes: dual-path system, accuracy over latency, and why reranking matters for legal leases" />
+
+#### DOCUMENT INGESTION
+
+The ingestion pipeline runs when a new lease is added. Documents follow consistent conventions, which allowed context-aware chunking split by `Article` and `Section` instead of arbitrary token windows. Because some header patterns produced tiny orphan chunks, I added post-processing to merge those with the next chunk.
+
+<Image src="/projects/RAG-pipeline/document-ingestion-start.png" alt="Document ingestion pipeline start: parse and chunk" width={1200} height={800} caption="Document ingestion: LlamaParse for PDF→Markdown, then context-aware chunking with custom merge logic" />
+
+From there, the flow splits into two paths:
+
+**Path A (Documents):** Chunk enricher adds metadata, then embeddings (Gemini `gemini-embedding-001`) are stored in Pinecone. I validated the embedding model with a small recall@10 eval using client-provided Q&A pairs.
+
+**Path B (Analytics):** Gemini Flash extracts key deal terms (Rent, Dates, Parties, Renewal_Option) into a Pydantic schema via JSON mode, then stored for analytical retrieval.
+
+<Image src="/projects/RAG-pipeline/document-ingestion-end.png" alt="Dual-path ingestion: analytics to SQLite, documents to Pinecone" width={1200} height={800} caption="Dual-path ingestion: structured analytics to SQLite, enriched chunks to Pinecone" />
+
+#### QUERY PIPELINE
+
+At query time, a **Query Router** (Gemini Flash) classifies the user's question and routes it to either the Analytics path (tool calls, SQLite) or the Documents path (vector search, rerank, generation).
+
+<Image src="/projects/RAG-pipeline/query-start.png" alt="Query pipeline routing: Analytics vs Documents" width={1200} height={800} caption="Query Router directs questions to Analytics (tool calls) or Documents (retrieval)" />
+
+**Documents path:** Embed query → Pinecone top-k (default 40) → FlashRank rerank to top-n (default 10) → Gemini Flash generates a structured answer with sources and confidence score.
+
+**Analytics path:** Tool calls execute against SQLite, handlers retrieve data, and the system outputs pre-formatted answers for aggregation-style questions.
+
+<Image src="/projects/RAG-pipeline/query-end.png" alt="Query pipeline: RAG retrieval flow and analytics tool flow" width={1200} height={800} caption="End-to-end query flow: embedding, Pinecone, rerank, generation vs. tool calls and SQLite" />
+
+#### THE APPLICATION
+
+The final app exposes all three capabilities through a clean interface: Q&A for natural language questions, Portfolio Analytics for aggregated metrics and lease breakdowns, and Clause Comparison for side-by-side key terms across selected leases. Sensitive client data is redacted in these screenshots.
+
+<Image src="/projects/RAG-pipeline/portfolio-analytics.png" alt="Portfolio Analytics dashboard" width={1200} height={800} caption="Portfolio Analytics: aggregated metrics (total leases, area, deposits, avg rent/SF) and sortable lease breakdown" />
+
+<Image src="/projects/RAG-pipeline/clause-comparison.png" alt="Clause Comparison interface" width={1200} height={800} caption="Clause Comparison: select leases and compare key terms side-by-side for due diligence" />
+
+<Image src="/projects/RAG-pipeline/final-app.png" alt="Q&A interface" width={1200} height={800} caption="Q&A: Ask the chat bot any lease-specific questions" />
+
+#### TECH STACK
+
+| Component | Technology |
+| **LLM** | Google Gemini 2.5 Flash |
+| **Embeddings** | Google `text-embedding-004` (768 dims) |
+| **Vector DB** | Pinecone Serverless (cosine, AWS us-east-1) |
+| **Reranker** | FlashRank (ms-marco-TinyBERT-L-2-v2) |
+| **Parser** | LlamaParse (premium mode, Markdown output) |
+| **Orchestration** | LangChain + Google GenAI |
