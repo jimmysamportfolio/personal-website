@@ -6,7 +6,7 @@ const experience = [
     company: "Cedar AI Agents",
     title: "Founding Engineer",
     description: [
-      "Building with voice AI agents.",
+      "Building with voice AI agents. Currently in stealth.",
     ],
     website: "https://www.getcedar.ai/",
     period: "2026 - Present",
@@ -23,20 +23,19 @@ const experience = [
     period: "2025",
     colors: "bg-[#3b3b3b]",
   },
-  {
-    company: "Pit Stop Portables",
-    title: "Technical Operations Specialist",
-    description: [
-      "Recovered $2k/day in lost revenue via automated billing reconciliation.",
-      "Cut compute costs 30% by migrating unnecessary cron jobs to AWS Lambda.",
-    ],
-    website: "https://www.pitstopportables.com/",
-    period: "2025",
-    colors: "bg-[#2a7dd6]",
-  },
 ];
 
 const leadership = [
+  {
+    company: "UBC BizTech",
+    title: "Partnerships Co-Lead",
+    description: [
+      "Leading BizTech's partnerships team that serves over 900 members.",
+    ],
+    website: "https://www.ubcbiztech.com/",
+    period: "2026 - Present",
+    colors: "bg-[#6c5ce7]",
+  },
   {
     company: "UBC BizTech",
     title: "Partnerships Director",
@@ -45,7 +44,7 @@ const leadership = [
       "Got us a live interview on global news."
     ],
     website: "https://www.ubcbiztech.com/",
-    period: "2025 - Present",
+    period: "2025",
     colors: "bg-[#6c5ce7]",
   },
 ];
