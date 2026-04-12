@@ -8,7 +8,7 @@ export default function Hero() {
       </div>
       <div className="w-full space-y-4 text-sm tracking-tight">
         <p>
-          {"I like building things, breaking into new spaces, and figuring stuff out as I go. Right now that looks like shipping AI products at Advizr, running events at BizTech, and studying business + CS at UBC."}
+          {"I like building things, breaking into new spaces, and figuring stuff out as I go. Right now that looks like building AI agents at Cedar AI Agents, running events at BizTech, and studying business + CS at UBC."}
         </p>
         <p>
           {"Here's what I've been working on. Or, you can "}

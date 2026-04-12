@@ -3,6 +3,16 @@
 
 const experience = [
   {
+    company: "Cedar AI Agents",
+    title: "Founding Engineer",
+    description: [
+      "Building with voice AI agents.",
+    ],
+    website: "https://www.getcedar.ai/",
+    period: "2026 - Present",
+    colors: "bg-[#2d6a4f]",
+  },
+  {
     company: "Advizr",
     title: "Software Engineer",
     description: [
@@ -10,7 +20,7 @@ const experience = [
       "Built a specialized jane app scraping pipeline for 10,000+ clinics scaled Canada-wide.",
     ],
     website: "https://advizr.ca/",
-    period: "2025 - Present",
+    period: "2025",
     colors: "bg-[#3b3b3b]",
   },
   {
