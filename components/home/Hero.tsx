@@ -5,8 +5,8 @@ export default function Hero() {
         {"Hi, I'm Jimmy, Founding Engineer at Cedar AI Agents (a16z SR06)"}
       </div>
       <div className="w-full max-w-3xl space-y-4 text-lg leading-relaxed tracking-tight sm:text-xl">
-        <p>I&apos;m interested in AI/ML and robotics, and I&apos;m loving building at the intersection of human-AI interaction.</p>
-        <p>I care about building products that are not only functional, but also intuitive and delightful.</p>
+        <p>I&apos;m interested in AI/ML, robotics, and love building at the frontier of AI-human interaction.</p>
+        <p>I care deeply about building innovative products that solve hard problems in intuitive ways.</p>
         <p>Currently on leave from the University of British Columbia.</p>
       </div>
     </div>

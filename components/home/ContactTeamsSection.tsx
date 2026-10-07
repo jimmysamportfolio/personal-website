@@ -1,7 +1,10 @@
+import { ArrowUpRight } from "lucide-react";
+
 const contacts = [
-  { label: "Email", href: "mailto:jimmygsam@gmail.com", value: "jimmygsam@gmail.com" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/jimmy-sam-13b7b8297/", value: "Jimmy Sam" },
-  { label: "GitHub", href: "https://github.com/jimmysamportfolio", value: "@jimmysamportfolio" },
+  { label: "GitHub", href: "https://github.com/jimmysamportfolio" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/jimmy-sam-13b7b8297/" },
+  { label: "Email", href: "mailto:jimmygsam@gmail.com" },
+  { label: "X", href: "https://x.com/__JimmySam__" },
 ];
 
 const experience = [
@@ -9,14 +12,12 @@ const experience = [
     company: "Cedar AI Agents",
     title: "Founding Engineer",
     period: "2026 - Present",
-    description: "Building voice AI agents.",
     href: "https://www.getcedar.ai/",
   },
   {
     company: "Advizr",
     title: "Software Engineer",
     period: "2025",
-    description: "Built RAG and data products for Canadian businesses.",
     href: "https://advizr.ca/",
   },
 ];
@@ -26,16 +27,16 @@ export default function ContactTeamsSection() {
     <section className="grid gap-10 py-6 sm:grid-cols-[0.8fr_1.2fr] sm:gap-16">
       <div>
         <h2 className="mb-5 text-xl font-semibold">Contact</h2>
-        <ul className="space-y-3 text-base sm:text-lg">
+        <ul className="flex flex-wrap gap-x-4 gap-y-3 text-base sm:text-lg">
           {contacts.map((contact) => (
             <li key={contact.label}>
               <a
-                className="group inline-flex flex-col"
+                className="inline-flex items-center gap-0.5 hover:opacity-70 transition-opacity"
                 href={contact.href}
                 target={contact.href.startsWith("http") ? "_blank" : undefined}
               >
-                <span className="text-sm text-muted-foreground">{contact.label}</span>
-                <span className="underline-offset-4 group-hover:underline">{contact.value}</span>
+                {contact.label}
+                <ArrowUpRight size={12} />
               </a>
             </li>
           ))}
@@ -51,7 +52,6 @@ export default function ContactTeamsSection() {
                 <h3 className="font-medium group-hover:text-muted-foreground">{item.title}, {item.company}</h3>
                 <span className="text-sm text-muted-foreground">{item.period}</span>
               </div>
-              <p className="mt-1 text-base leading-relaxed text-muted-foreground">{item.description}</p>
             </a>
           ))}
         </div>
