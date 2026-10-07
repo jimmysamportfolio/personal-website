@@ -68,7 +68,7 @@ export default function ContactTeamsSection() {
 
       <div>
         <div className="flex items-center mb-3">
-          <h2 className="text-sm font-medium">education</h2>
+          <h2 className="text-sm font-medium">Education</h2>
         </div>
         <div className="space-y-3">
           {education.map((item) => (
@@ -102,7 +102,7 @@ export default function ContactTeamsSection() {
 
       <div>
         <div className="flex items-center mb-3">
-          <h2 className="text-sm font-medium">experience</h2>
+          <h2 className="text-sm font-medium">Experience</h2>
         </div>
         <div className="space-y-3">
           {experience.map((exp) => (
@@ -140,7 +140,7 @@ export default function ContactTeamsSection() {
 
       <div>
         <div className="flex items-center mb-3">
-          <h2 className="text-sm font-medium">leadership</h2>
+          <h2 className="text-sm font-medium">Leadership</h2>
         </div>
         <div className="space-y-3">
           {leadership.map((item) => (
