@@ -6,10 +6,6 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 
-const menuItems = [
-  { href: "/about", label: "about" },
-];
-
 const contactLinks = [
   { label: "GitHub", href: "https://github.com/jimmysamportfolio" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/jimmy-sam-13b7b8297/" },
@@ -84,18 +80,6 @@ export function SiteNavbar() {
             ))}
           </div>
 
-          <nav className="hidden items-center gap-4 sm:flex">
-            {menuItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="inline-flex items-center gap-0.5 hover:opacity-70 transition-opacity"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="relative z-[101] h-8 w-8 sm:hidden"
@@ -135,28 +119,10 @@ export function SiteNavbar() {
           >
             <div className="h-full w-full overflow-auto pt-32">
               <div className="space-y-6 px-6">
-                {menuItems.map((item, index) => (
-                  <motion.div
-                    key={item.href}
-                    custom={index}
-                    variants={menuItemVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className="inline-flex items-center gap-1 text-4xl"
-                    >
-                      {item.label}
-                    </Link>
-                  </motion.div>
-                ))}
                 {contactLinks.map((link, index) => (
                   <motion.div
                     key={link.label}
-                    custom={menuItems.length + index}
+                    custom={index}
                     variants={menuItemVariants}
                     initial="hidden"
                     animate="visible"
