@@ -4,10 +4,10 @@ export default function Hero() {
       <div className="mb-6 flex w-full flex-col gap-2 text-3xl font-medium tracking-tight sm:text-4xl">
         {"Hi, I'm Jimmy, Founding Engineer at Cedar AI Agents (a16z SR06)"}
       </div>
-      <div className="w-full max-w-2xl space-y-4 text-lg leading-relaxed tracking-tight sm:text-xl">
-        <p>
-          {"I like building things, breaking into new spaces, and figuring stuff out as I go. Right now that looks like building AI agents at Cedar AI Agents and running events at BizTech."}
-        </p>
+      <div className="w-full max-w-3xl space-y-4 text-lg leading-relaxed tracking-tight sm:text-xl">
+        <p>I&apos;m interested in AI/ML and robotics, and I&apos;m loving building at the intersection of human-AI interaction.</p>
+        <p>I care about building products that are not only functional, but also intuitive and delightful.</p>
+        <p>Currently on leave from the University of British Columbia.</p>
       </div>
     </div>
   );

@@ -69,7 +69,7 @@ export function SiteNavbar() {
             jimmy.sam
           </Link>
 
-          <div className="hidden items-center gap-4 sm:flex">
+          <div className="hidden items-center gap-4 md:flex">
             {contactLinks.map((link) => (
               <Link
                 key={link.label}
@@ -83,7 +83,7 @@ export function SiteNavbar() {
             ))}
           </div>
 
-          <nav className="hidden items-center gap-4 sm:flex">
+          <nav className="hidden items-center gap-4 md:flex">
             {menuItems.map((item) => (
               <Link
                 key={item.href}
@@ -97,7 +97,7 @@ export function SiteNavbar() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="relative z-[101] h-8 w-8 sm:hidden"
+            className="relative z-[101] h-8 w-8 md:hidden"
             aria-label="Toggle menu"
           >
             <div className="absolute inset-0 flex items-center justify-center">
