@@ -3,18 +3,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-
 
 const menuItems = [
-  { href: "/about", label: "about" },
-];
-
-const contactLinks = [
-  { label: "GitHub", href: "https://github.com/jimmysamportfolio" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/jimmy-sam-13b7b8297/" },
-  { label: "Email", href: "mailto:jimmygsam@gmail.com" },
-  { label: "X", href: "https://x.com/__JimmySam__" },
+  { href: "/resume", label: "Resume" },
 ];
 
 export function SiteNavbar() {
@@ -64,27 +55,13 @@ export function SiteNavbar() {
 
   return (
     <div className="relative z-40 w-full">
-      <header className="py-4">
-        <div className="px-6 mx-0 sm:px-0 sm:mx-auto w-full flex h-14 max-w-[571px] items-center justify-between text-sm text-[#3b3b3b]">
+      <header className="py-5">
+        <div className="mx-auto flex h-14 w-full max-w-4xl items-center justify-between px-6 text-base text-[#3b3b3b] sm:px-10 lg:px-0">
           <Link href="/" className="hover:opacity-70 transition-opacity">
             jimmy.sam
           </Link>
 
-          <div className="hidden items-center gap-4 sm:flex">
-            {contactLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                className="inline-flex items-center gap-0.5 hover:opacity-70 transition-opacity"
-              >
-                {link.label}
-                <ArrowUpRight size={10} />
-              </Link>
-            ))}
-          </div>
-
-          <nav className="hidden items-center gap-4 sm:flex">
+          <nav className="hidden items-center gap-4 md:flex">
             {menuItems.map((item) => (
               <Link
                 key={item.href}
@@ -98,7 +75,7 @@ export function SiteNavbar() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="relative z-[101] h-8 w-8 sm:hidden"
+            className="relative z-[101] h-8 w-8 md:hidden"
             aria-label="Toggle menu"
           >
             <div className="absolute inset-0 flex items-center justify-center">
@@ -150,26 +127,6 @@ export function SiteNavbar() {
                       className="inline-flex items-center gap-1 text-4xl"
                     >
                       {item.label}
-                    </Link>
-                  </motion.div>
-                ))}
-                {contactLinks.map((link, index) => (
-                  <motion.div
-                    key={link.label}
-                    custom={menuItems.length + index}
-                    variants={menuItemVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                  >
-                    <Link
-                      href={link.href}
-                      target="_blank"
-                      onClick={() => setIsOpen(false)}
-                      className="inline-flex items-center gap-2 text-4xl"
-                    >
-                      {link.label}
-                      <ArrowUpRight size={20} />
                     </Link>
                   </motion.div>
                 ))}

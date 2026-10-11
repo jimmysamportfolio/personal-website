@@ -55,7 +55,7 @@ export default async function RootLayout({
         >
           <div className="relative z-20">
             <SiteNavbar />
-            <div className="max-w-[571px] px-6 mx-0 sm:px-0 sm:mx-auto mt-4 mb-8 w-full tracking-tight">{children}</div>
+            <div className="mx-auto mt-8 mb-16 w-full max-w-4xl px-6 tracking-tight sm:px-10 lg:px-0">{children}</div>
           </div>
           <Toaster richColors position="bottom-center"/>
         </ThemeProvider>

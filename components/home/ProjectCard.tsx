@@ -122,9 +122,9 @@ export function ProjectCard({
       </Link>
 
       {showMeta && (
-        <div className="flex flex-col my-2 -space-y-0.5">
-          <span className="text-foreground font-normal text-sm">{title}</span>
-          <span className="text-muted-foreground font-thin text-[11px]">
+        <div className="my-3 flex flex-col gap-0.5">
+          <span className="text-foreground text-lg font-normal">{title}</span>
+          <span className="text-muted-foreground text-sm font-light">
             {role}
           </span>
         </div>
