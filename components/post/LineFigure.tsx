@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { animateWhileVisible, clamp, el, reducedMotion } from "./util";
+import { animateWhileVisible, clamp, el, useReducedMotion } from "./util";
 
 type Chip = { lane: number; s: number; stop: number; dwell: number; max: number; node: SVGRectElement };
 
 /** The factory line: PRs flow from tickets and schedules through review and pile up at CI. */
 export function LineFigure() {
   const ref = useRef<SVGSVGElement>(null);
+  const still = useReducedMotion();
 
   useEffect(() => {
     const svg = ref.current!;
@@ -53,7 +54,7 @@ export function LineFigure() {
     };
 
     let stop = () => {};
-    if (reducedMotion()) {
+    if (still) {
       const c0 = make(0, mergeLen[0] + D_CI); c0.dwell = 0.8; c0.max = 1.6;
       for (let k = 1; k <= 5; k++) make(k % 2, mergeLen[k % 2] + D_CI - GAP * k);
       make(0, mergeLen[0] + D_OK + 34).stop = 2;
@@ -82,7 +83,7 @@ export function LineFigure() {
       layer.replaceChildren();
       chips = [];
     };
-  }, []);
+  }, [still]);
 
   return (
     <figure>

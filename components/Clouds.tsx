@@ -187,7 +187,6 @@ export function Clouds({ top = 1, bottom = 1, side = 0.26 }: Props) {
       removeEventListener("resize", onResize);
       removeEventListener("scroll", onScroll);
       ro.disconnect();
-      gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
   }, [top, bottom, side]);
 

@@ -104,6 +104,7 @@
 .post .cross{ stroke: var(--ink-4); stroke-width: 1; opacity: 0; }
 .post .cross.on{ opacity: 1; }
 .post .hit{ fill: transparent; }
+.post .chart-box svg:focus-visible{ outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
 
 /* Shards */
 .post .bar{ fill: var(--dot); }

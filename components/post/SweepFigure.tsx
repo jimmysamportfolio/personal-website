@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { el, reducedMotion, tooltip } from "./util";
+import { el, tooltip, useReducedMotion } from "./util";
 
 const GROUPS = [
   { k: "merged", n: 151, label: "Merged by the agent" },
@@ -13,6 +13,7 @@ const GROUPS = [
 /** The October 23 sweep: one square per open agent PR, grouped by what happened to it. */
 export function SweepFigure() {
   const ref = useRef<SVGSVGElement>(null);
+  const still = useReducedMotion();
   const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -63,7 +64,7 @@ export function SweepFigure() {
 
     let raf = 0;
     let io: IntersectionObserver | undefined;
-    if (reducedMotion()) fill(cells.length);
+    if (still) fill(cells.length);
     else {
       io = new IntersectionObserver(([e]) => {
         if (!e.isIntersecting) return;
@@ -85,7 +86,7 @@ export function SweepFigure() {
       tip.remove();
       svg.replaceChildren();
     };
-  }, []);
+  }, [still]);
 
   return (
     <figure>

@@ -47,24 +47,59 @@ function drawChart(box: HTMLElement, data: Point[], o: ChartOpts) {
   el("text", { x: a.x + 2, y: a.y - 10, class: "dl" }, svg).textContent = o.valueLabel(a.v);
   el("text", { x: z.x, y: z.y - 10, class: "dl", "text-anchor": "end" }, svg).textContent = o.valueLabel(z.v);
   const tip = tooltip(box);
-  const hit = el("rect", { x: L, y: 0, width: W - L - R, height: H, class: "hit" }, svg);
-  hit.addEventListener("pointermove", (e) => {
-    const r = svg.getBoundingClientRect(), k = r.width / W, mx = (e.clientX - r.left) / k;
-    let best = 0;
-    pts.forEach((p, i) => { if (Math.abs(p.x - mx) < Math.abs(pts[best].x - mx)) best = i; });
-    const p = pts[best], b = box.getBoundingClientRect();
+  let current = -1;
+  const select = (i: number) => {
+    current = i;
+    const p = pts[i], r = svg.getBoundingClientRect(), k = r.width / W, b = box.getBoundingClientRect();
     cross.setAttribute("x1", String(p.x));
     cross.setAttribute("x2", String(p.x));
     cross.classList.add("on");
-    dots.forEach((d, i) => d.classList.toggle("on", i === best));
+    dots.forEach((d, j) => d.classList.toggle("on", j === i));
     tip.show(fmtDate(day(p.d)), o.tipLabel(p.v), r.left - b.left + p.x * k, r.top - b.top + p.y * k - 12);
-  });
-  hit.addEventListener("pointerleave", () => {
+  };
+  const clear = () => {
+    current = -1;
     cross.classList.remove("on");
     dots.forEach((d) => d.classList.remove("on"));
     tip.hide();
+  };
+  const nearest = (clientX: number) => {
+    const r = svg.getBoundingClientRect(), mx = (clientX - r.left) / (r.width / W);
+    let best = 0;
+    pts.forEach((p, i) => { if (Math.abs(p.x - mx) < Math.abs(pts[best].x - mx)) best = i; });
+    return best;
+  };
+  // Mouse moves and taps both pick the nearest sample; arrow keys step through samples when the chart has focus.
+  const hit = el("rect", { x: L, y: 0, width: W - L - R, height: H, class: "hit" }, svg);
+  hit.addEventListener("pointermove", (e) => select(nearest(e.clientX)));
+  hit.addEventListener("pointerdown", (e) => select(nearest(e.clientX)));
+  hit.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") clear(); });
+  svg.setAttribute("tabindex", "0");
+  svg.addEventListener("focus", () => select(current < 0 ? pts.length - 1 : current));
+  svg.addEventListener("blur", clear);
+  svg.addEventListener("keydown", (e) => {
+    const keys: Record<string, number | undefined> = { ArrowLeft: current - 1, ArrowRight: current + 1, Home: 0, End: pts.length - 1 };
+    const next = keys[e.key];
+    if (next === undefined) return;
+    e.preventDefault();
+    select(Math.max(0, Math.min(pts.length - 1, next)));
   });
   return () => { tip.remove(); svg.remove(); };
+}
+
+/** Every sample as a table for screen readers; the charts show the same data visually. */
+function DataTable({ caption, unit, data, format }: { caption: string; unit: string; data: Point[]; format: (v: number) => string }) {
+  return (
+    <table className="sr-only">
+      <caption>{caption}</caption>
+      <thead><tr><th scope="col">Date</th><th scope="col">{unit}</th></tr></thead>
+      <tbody>
+        {data.map(([d, v]) => (
+          <tr key={d}><td>{fmtDate(day(d))}</td><td>{format(v)}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  );
 }
 
 /** Test files and pipeline time as small multiples on one time axis. */
@@ -94,8 +129,14 @@ export function CiFigure() {
   return (
     <figure>
       <div className="frame"><div className="inner charts">
-        <div className="chart-box" ref={tests}><p className="chart-h">Test files in our main service</p></div>
-        <div className="chart-box" ref={pipeline}><p className="chart-h">Median PR pipeline, minutes</p></div>
+        <div className="chart-box" ref={tests}>
+          <p className="chart-h">Test files in our main service</p>
+          <DataTable caption="Test files in our main service" unit="Test files" data={TESTS} format={(v) => v.toLocaleString("en-US")} />
+        </div>
+        <div className="chart-box" ref={pipeline}>
+          <p className="chart-h">Median PR pipeline, minutes</p>
+          <DataTable caption="Median PR pipeline by week" unit="Minutes" data={PIPELINE} format={(v) => v.toFixed(1)} />
+        </div>
       </div></div>
       <figcaption>Test file counts from PR descriptions on four dates. Pipeline medians from CircleCI for the weeks I sampled. CircleCI keeps 90 days of history, so that line starts in August.</figcaption>
     </figure>

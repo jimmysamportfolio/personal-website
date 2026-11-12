@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { animateWhileVisible, clamp, el, reducedMotion } from "./util";
+import { animateWhileVisible, clamp, el, useReducedMotion } from "./util";
 
 type State = "write" | "wait" | "check";
 type Agent = { y: number; bar: SVGRectElement; st: SVGTextElement; state: State; p: number; dur: number };
@@ -11,6 +11,7 @@ const LABEL: Record<State, string> = { write: "Writing code", wait: "Waiting", c
 /** Several agents write code at once but take turns for the expensive check. */
 export function LockFigure() {
   const ref = useRef<SVGSVGElement>(null);
+  const still = useReducedMotion();
 
   useEffect(() => {
     const svg = ref.current!;
@@ -40,7 +41,7 @@ export function LockFigure() {
     };
 
     let stop = () => {};
-    if (reducedMotion()) {
+    if (still) {
       const states: State[] = ["write", "wait", "check", "write", "wait"];
       agents.forEach((a, i) => { a.state = states[i]; a.p = [0.6, 0, 0.5, 0.3, 0][i]; });
       ly = agents[2].y;
@@ -60,7 +61,7 @@ export function LockFigure() {
       stop();
       rows.replaceChildren();
     };
-  }, []);
+  }, [still]);
 
   return (
     <figure>

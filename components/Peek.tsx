@@ -23,7 +23,9 @@ export function Peek() {
     const peek = ref.current;
     if (!peek) return;
     const panes = Object.fromEntries([...peek.querySelectorAll<HTMLElement>("[data-pane]")].map((p) => [p.dataset.pane!, p]));
-    const canPeek = matchMedia("(hover: hover) and (min-width: 700px)");
+    // Mouse previews need a hover-capable pointer; keyboard previews only need room.
+    const canHoverPeek = matchMedia("(hover: hover) and (min-width: 700px)");
+    const canFocusPeek = matchMedia("(min-width: 700px)");
     const still = matchMedia("(prefers-reduced-motion: reduce)");
     let x = 0, y = 0, tx = 0, ty = 0, tilt = 0, s = 0.94;
     let on = false, placed = false, active: string | null = null;
@@ -49,8 +51,8 @@ export function Peek() {
       if (on || Math.abs(vx) > 0.05 || Math.abs(tilt) > 0.02 || Math.abs(s - 0.94) > 0.002) loop();
       else placed = false;
     };
-    const show = (id: string, cx: number, cy: number) => {
-      if (!canPeek.matches || !panes[id]) return;
+    const show = (id: string, cx: number, cy: number, viaKeyboard = false) => {
+      if (!(viaKeyboard ? canFocusPeek : canHoverPeek).matches || !panes[id]) return;
       clearTimeout(hideT);
       if (active !== id) {
         if (active) panes[active].classList.remove("on");
@@ -74,7 +76,7 @@ export function Peek() {
       const focus = () => {
         if (!a.matches(":focus-visible")) return;
         const r = a.getBoundingClientRect();
-        show(a.dataset.peek!, r.right - 120, r.top + r.height / 2);
+        show(a.dataset.peek!, r.right - 120, r.top + r.height / 2, true);
       };
       a.addEventListener("mouseenter", enter);
       a.addEventListener("mouseleave", hide);

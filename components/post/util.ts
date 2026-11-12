@@ -1,4 +1,6 @@
 /** Helpers shared by the post's animated figures. */
+import { useSyncExternalStore } from "react";
+
 export const NS = "http://www.w3.org/2000/svg";
 
 export function el<K extends keyof SVGElementTagNameMap>(tag: K, attrs: Record<string, string | number> = {}, parent?: Element): SVGElementTagNameMap[K] {
@@ -11,7 +13,17 @@ export function el<K extends keyof SVGElementTagNameMap>(tag: K, attrs: Record<s
 export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 export const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 export const ease = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
-export const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+const REDUCED = "(prefers-reduced-motion: reduce)";
+const subscribeReduced = (onChange: () => void) => {
+  const mq = matchMedia(REDUCED);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+};
+
+/** Live reduced-motion preference. Figures pass it to their effect deps so they switch to a static frame when it changes. */
+export function useReducedMotion() {
+  return useSyncExternalStore(subscribeReduced, () => matchMedia(REDUCED).matches, () => false);
+}
 
 /** Runs step(dt) every frame while the node is on screen. Returns a cleanup function. */
 export function animateWhileVisible(node: Element, step: (dt: number) => void): () => void {

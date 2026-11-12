@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { animateWhileVisible, el, reducedMotion } from "./util";
+import { animateWhileVisible, el, useReducedMotion } from "./util";
 
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const JOBS = [["Dead code", "Design docs"], ["Comments"], ["Abstractions"], ["Layering"], ["Logging"], ["Types"], []];
@@ -9,6 +9,7 @@ const JOBS = [["Dead code", "Design docs"], ["Comments"], ["Abstractions"], ["La
 /** The routine week: each scheduled agent gets a day and drops small PRs when it runs. */
 export function WeekFigure() {
   const ref = useRef<SVGSVGElement>(null);
+  const still = useReducedMotion();
 
   useEffect(() => {
     const svg = ref.current!;
@@ -45,14 +46,14 @@ export function WeekFigure() {
     };
 
     let stop = () => {};
-    if (reducedMotion()) cols[0].classList.add("on");
+    if (still) cols[0].classList.add("on");
     else stop = animateWhileVisible(svg, (dt) => { t -= dt; if (t <= 0) { next(); t = 1.2; } });
     return () => {
       stop();
       timers.forEach(clearTimeout);
       svg.replaceChildren();
     };
-  }, []);
+  }, [still]);
 
   return (
     <figure>

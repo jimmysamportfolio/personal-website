@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { animateWhileVisible, ease, el, lerp, reducedMotion } from "./util";
+import { animateWhileVisible, ease, el, lerp, useReducedMotion } from "./util";
 
 const L = 78, R = 592, T = 44, B = 190, GMAX = 4.4;
 const Y = (g: number) => B - (g / GMAX) * (B - T);
@@ -11,6 +11,7 @@ const TOTAL = 15;
 /** Shard memory rising toward the limit, then splitting into more shards. Conceptual. */
 export function ShardsFigure() {
   const ref = useRef<SVGSVGElement>(null);
+  const still = useReducedMotion();
 
   useEffect(() => {
     const svg = ref.current!;
@@ -56,7 +57,7 @@ export function ShardsFigure() {
     };
 
     let stop = () => {};
-    if (reducedMotion()) frame(9.2);
+    if (still) frame(9.2);
     else {
       let tt = 0;
       stop = animateWhileVisible(svg, (dt) => { tt = (tt + dt) % TOTAL; frame(tt); });
@@ -65,7 +66,7 @@ export function ShardsFigure() {
       stop();
       bars.replaceChildren();
     };
-  }, []);
+  }, [still]);
 
   return (
     <figure>

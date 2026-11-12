@@ -51,7 +51,7 @@
 .peek .pv.on .bar{ animation: peek-fill 1.8s var(--ease) infinite; }
 @keyframes peek-fill{ from{ transform: scaleX(0); } 85%, to{ transform: scaleX(1); } }
 .peek text{ font-family: var(--sans); font-size: 11px; fill: oklch(0.97 0.01 220 / .8); }
-@media (hover: none), (max-width: 699px){ .peek{ display: none; } }
+@media (max-width: 699px){ .peek{ display: none; } }
 
 @media (max-width: 640px){
   .home .sec{ grid-template-columns: minmax(0, 1fr); }
