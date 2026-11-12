@@ -1,0 +1,61 @@
+/* Homepage */
+.home{ max-width: 760px; margin: 0 auto; padding: clamp(104px, 18vh, 168px) 24px 260px; }
+.home h1{ font-family: var(--serif); font-optical-sizing: auto; font-weight: 400; font-size: clamp(44px, 6.4vw, 60px); line-height: 1.02; letter-spacing: -0.028em; color: var(--ink); margin: 0 0 24px; }
+.home h1.rise{ animation-name: rise-name; animation-duration: .7s; }
+@keyframes rise-name{ from{ opacity: 0; transform: translateY(14px); filter: blur(6px); } to{ opacity: 1; transform: none; filter: blur(0); } }
+.home .intro{ font-size: 18px; line-height: 1.5; max-width: 33em; }
+.home .intro p{ margin: 0 0 12px; }
+.home .intro b{ font-weight: 500; color: var(--ink); }
+
+.home .sec{ display: grid; grid-template-columns: 148px minmax(0, 1fr); gap: 0 24px; margin-top: clamp(72px, 11vh, 104px); }
+.home .eyebrow{ height: 30px; line-height: 30px; margin: 6px 0 0; font-size: 14.5px; font-weight: 400; color: var(--ink-2); transition: color .25s var(--ease); }
+.home .sec:has(.item a:hover) .eyebrow, .home .sec:has(.item a:focus-visible) .eyebrow{ color: var(--ink); }
+.home .items{ list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.home .item a{ display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 20px; padding: 6px 12px 8px; margin: 0 -12px; border-radius: 10px; transition: background .25s var(--ease), opacity .3s var(--ease); }
+.home .item a:hover, .home .item a:focus-visible{ background: var(--hover); }
+.home .item .n{ font-size: 16.5px; font-weight: 500; color: var(--ink); display: inline-flex; align-items: center; gap: 6px; line-height: 30px; white-space: nowrap; min-width: 0; }
+.home .item .by{ font-size: 15px; font-weight: 400; color: var(--ink-3); }
+.home .item .n svg{ width: 9px; height: 9px; flex: none; opacity: 0; transform: translate(-4px, 0); transition: opacity .25s var(--ease), transform .35s var(--ease); }
+.home .item a:hover .n svg, .home .item a:focus-visible .n svg{ opacity: .55; transform: none; }
+.home .item .m{ color: var(--ink-3); font-size: 14.5px; line-height: 30px; font-variant-numeric: tabular-nums; white-space: nowrap; transition: color .25s var(--ease); }
+.home .item a:hover .m{ color: var(--ink-2); }
+.home .item .d{ grid-column: 1 / -1; font-size: 15px; color: var(--ink-2); margin-top: -2px; }
+@media (hover: hover){
+  .home .items:has(.item a:hover) .item a:not(:hover){ opacity: .5; }
+}
+
+/* Preview that sits next to the cursor */
+.peek{ position: fixed; left: 0; top: 0; width: 240px; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; pointer-events: none; z-index: 10; opacity: 0; transform: translate3d(-999px, 0, 0); transition: opacity .22s var(--ease); background: var(--card); box-shadow: 0 0 0 1px oklch(0.3 0.01 220 / .1), 0 22px 44px -22px oklch(0.2 0.02 240 / .45); will-change: transform; }
+.peek::after{ content: ""; position: absolute; inset: 0; background-image: var(--grain); mix-blend-mode: overlay; opacity: .2; z-index: 2; }
+.peek.on{ opacity: 1; }
+.peek .pv{ position: absolute; inset: 0; opacity: 0; transform: scale(1.06); transition: opacity .3s var(--ease), transform .7s var(--ease-expo); }
+.peek .pv.on{ opacity: 1; transform: none; }
+.peek .pv img{ object-fit: cover; }
+.peek .pv-art svg{ width: 100%; height: 100%; display: block; }
+.peek .pv-cedar{ background: radial-gradient(90% 80% at 12% 0%, oklch(0.72 0.09 160 / .9), transparent 60%), radial-gradient(70% 70% at 100% 100%, oklch(0.5 0.08 210 / .8), transparent 70%), linear-gradient(165deg, oklch(0.42 0.06 180), oklch(0.24 0.035 200)); }
+.peek .pv-factory{ background: radial-gradient(80% 60% at 85% 110%, oklch(0.78 0.07 225 / .9), transparent 70%), linear-gradient(170deg, oklch(0.2 0.035 262) 0%, oklch(0.34 0.11 256) 58%, oklch(0.62 0.09 240) 100%); }
+.peek .w{ fill: none; stroke: oklch(0.96 0.01 200 / .3); stroke-width: 1.25; }
+.peek .pl{ fill: none; stroke: oklch(0.97 0.03 200); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 10 190; stroke-dashoffset: 200; }
+.peek .pv.on .pl{ animation: peek-pulse 3s linear infinite; }
+.peek .pv.on .pl.d1{ animation-delay: -1s; }
+.peek .pv.on .pl.d2{ animation-delay: -2s; }
+@keyframes peek-pulse{ from{ stroke-dashoffset: 200; } to{ stroke-dashoffset: 0; } }
+.peek .o{ fill: oklch(0.96 0.01 200 / .55); }
+.peek .mid{ fill: oklch(0.3 0.04 195); stroke: oklch(0.96 0.01 200 / .85); stroke-width: 1.25; }
+.peek .hub{ fill: oklch(0.96 0.02 190); }
+.peek .st{ fill: oklch(0.25 0.06 258); stroke: oklch(0.96 0.01 220 / .7); stroke-width: 1.1; }
+.peek .ci{ fill: oklch(0.3 0.09 256); stroke: oklch(0.97 0.02 220); stroke-width: 1.4; }
+.peek .prod{ fill: oklch(0.97 0.01 220); }
+.peek .chip{ fill: oklch(0.9 0.06 220); }
+.peek .bar{ fill: oklch(0.97 0.02 220); transform-box: fill-box; transform-origin: left center; transform: scaleX(0); }
+.peek .pv.on .bar{ animation: peek-fill 1.8s var(--ease) infinite; }
+@keyframes peek-fill{ from{ transform: scaleX(0); } 85%, to{ transform: scaleX(1); } }
+.peek text{ font-family: var(--sans); font-size: 11px; fill: oklch(0.97 0.01 220 / .8); }
+@media (hover: none), (max-width: 699px){ .peek{ display: none; } }
+
+@media (max-width: 640px){
+  .home .sec{ grid-template-columns: minmax(0, 1fr); }
+  .home .eyebrow{ margin-bottom: 4px; }
+  .home .intro{ font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce){ .peek .pv{ transform: none; } }

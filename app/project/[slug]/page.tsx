@@ -1,104 +1,78 @@
-import { ExternalLink } from "@/app/constants";
-import Footer from "@/components/layout/Footer";
-import ProjectLinkButton from "@/components/project/ProjectLinkButton";
-import { getMDXComponents } from "@/mdx-components";
-import { MDXContent } from "mdx/types";
-import type { Metadata } from "next/types";
-import MediaPreview from "@/components/project/MediaPreview";
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ProjectTag } from "@/components/project/ProjectTag";
-import ScrollToTop from "@/components/layout/ScrollToTop";
-import { Link } from "lucide-react";
-import { PageLoadCascade } from "@/components/layout/PageLoadCascade";
+import { Clouds } from "@/components/Clouds";
+import { BackArrow, BigArrow, ExternalArrow } from "@/components/icons";
+import { PROJECTS, getProject } from "@/content/projects";
+import "../project.css";
 
-export type PostMetadata = Metadata & {
-  title: string;
-  description: string;
-  tags: string[];
-  role: string;
-  team: string[];
-  date?: string;
-  additionalLinks?: ExternalLink[];
-  image: string;
-};
+type Params = { params: Promise<{ slug: string }> };
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return PROJECTS.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const p = getProject((await params).slug);
+  if (!p) return {};
+  const cover = p.blocks.find((b) => b.kind === "figure")?.image.src ?? "/og.png";
+  return {
+    title: p.title,
+    description: p.dek,
+    alternates: { canonical: `/project/${p.slug}` },
+    openGraph: { title: `${p.title} · Jimmy Sam`, description: p.dek, url: `/project/${p.slug}`, images: [cover] },
+    twitter: { card: "summary_large_image", title: `${p.title} · Jimmy Sam`, description: p.dek, images: [cover] },
+  };
+}
+
+const style = (i: number) => ({ "--i": i }) as React.CSSProperties;
+
+export default async function ProjectPage({ params }: Params) {
   const { slug } = await params;
-
-  let Post: MDXContent;
-  let metadata: PostMetadata;
-
-  try {
-    const mod = await import(`@/content/projects/${slug}.mdx`);
-    Post = mod.default;
-    metadata = mod.metadata;
-  } catch (err) {
-    console.error(`MDX file for slug "${slug}" not found`, err);
-    notFound();
-  }
-
-  const components = getMDXComponents();
-  const parsedYear = metadata.date
-    ? new Date(metadata.date).getFullYear()
-    : undefined;
-  const projectYear =
-    parsedYear && !Number.isNaN(parsedYear) ? String(parsedYear) : null;
-
-  const projectRole = metadata.role;
+  const p = getProject(slug);
+  if (!p) notFound();
+  const next = PROJECTS[(PROJECTS.indexOf(p) + 1) % PROJECTS.length];
 
   return (
     <>
-      <ScrollToTop />
-      <main className="relative mx-auto min-h-screen w-full justify-center lg:justify-start">
-        <PageLoadCascade stagger={0.05}>
-          <div className="flex flex-col gap-1 w-full mb-8 border-b border-border border-dashed pb-8">
-            <div className="flex flex-col gap-2 sm:flex-row sm:gap-8">
-              <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">Title</p>
-                <p className="text-sm break-words">{metadata.title ?? "—"}</p>
+      <Clouds top={0.7} bottom={0.75} side={0.18} />
+      <main className="proj" data-column>
+        <Link className="back rise" style={style(0)} href="/"><BackArrow />Jimmy Sam</Link>
+        <p className="kicker rise" style={style(1)}>{p.kicker}</p>
+        <h1 className="rise" style={style(2)}>{p.title}</h1>
+        <p className="dek rise" style={style(3)}>{p.dek}</p>
+        <dl className="facts rise" style={style(4)}>
+          {p.facts.map(([k, v]) => (
+            <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
+          ))}
+        </dl>
+        {p.links.length > 0 && (
+          <ul className="pills rise" style={style(5)}>
+            {p.links.map((l) => (
+              <li key={l.href}><a href={l.href}>{l.label}<ExternalArrow /></a></li>
+            ))}
+          </ul>
+        )}
+        {p.blocks.map((b, i) =>
+          b.kind === "figure" ? (
+            <figure key={i} className={b.wide ? "shot reveal wide" : "shot reveal"}>
+              <div className="img">
+                <Image src={b.image} alt={b.alt} placeholder="blur" sizes={b.wide ? "(max-width: 900px) 100vw, 808px" : "(max-width: 760px) 100vw, 712px"} priority={i === 0} />
               </div>
-
-              <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">Role</p>
-                <p className="text-sm break-words">{projectRole ?? "—"}</p>
-              </div>
-
-              <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">Year</p>
-                <p className="text-sm">{projectYear ?? "—"}</p>
-              </div>
-            </div>
-
-            <MediaPreview
-              src={metadata.image}
-              className="flex h-64 md:h-[24rem] w-full mt-2 mb-1"
-            />
-
-            <p className="text-2xl font-regular tracking-tight mt-4">
-              {metadata.description}
-            </p>
-
-            {metadata?.additionalLinks &&
-              metadata?.additionalLinks?.length > 0 && (
-                <div className="flex flex-wrap gap-3 mt-4 opacity-80">
-                  {metadata?.additionalLinks?.map((item, index) => (
-                    <ProjectLinkButton item={item} key={index} />
-                  ))}
-                </div>
-              )}
-          </div>
-
-          <Post components={components} />
-
-          <Footer />
-        </PageLoadCascade>
+              <figcaption>{b.caption}</figcaption>
+            </figure>
+          ) : (
+            <div key={i} className="body reveal">{b.body}</div>
+          ),
+        )}
+        <nav className="next reveal" aria-label="Next project">
+          <span>Next</span>
+          <Link href={`/project/${next.slug}`}>{next.title}<BigArrow /></Link>
+        </nav>
       </main>
     </>
   );
 }
-
-export const dynamicParams = false;

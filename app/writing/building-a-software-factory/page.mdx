@@ -1,0 +1,141 @@
+import { CiFigure } from "@/components/post/CiFigure";
+import { LineFigure } from "@/components/post/LineFigure";
+import { LockFigure } from "@/components/post/LockFigure";
+import { RulesFigure } from "@/components/post/RulesFigure";
+import { ShardsFigure } from "@/components/post/ShardsFigure";
+import { SweepFigure } from "@/components/post/SweepFigure";
+import { WeekFigure } from "@/components/post/WeekFigure";
+
+export const metadata = {
+  title: "Building a Software Factory",
+  description: "What changed when agents started writing most of my code at Cedar, and what broke first.",
+  alternates: { canonical: "/writing/building-a-software-factory" },
+  openGraph: {
+    type: "article",
+    title: "Building a Software Factory",
+    description: "What changed when agents started writing most of my code at Cedar, and what broke first.",
+    url: "/writing/building-a-software-factory",
+    publishedTime: "2026-11-12",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Building a Software Factory" }],
+  },
+};
+
+<p className="eyebrow rise">Writing</p>
+
+# Building a Software Factory
+
+<p className="dek">What changed when agents started writing most of my code at Cedar, and what broke first.</p>
+<p className="byline">Jimmy Sam · November 2026</p>
+
+<LineFigure />
+
+Since March, I've merged 1,697 pull requests at Cedar. About three in four were written with Claude Code. In March I merged 30. In October I merged 545.
+
+That pace didn't come from typing faster. It came from running agents like a factory line. They take tickets, run on a schedule, get reviewed by bots, and wait in the merge queue like everyone else. A person still decides what ships to production.
+
+Each time one station on the line got faster, the next one became the bottleneck. First my laptop. Then the pile of open PRs. Then review. Now CI.
+
+<p className="asof">As of November 12, 2026</p>
+<ul className="stats">
+  <li><b>1,697</b><span>of my PRs merged since March</span></li>
+  <li><b>8</b><span>scheduled cloud agents: 7 weekly cleanup jobs and a daily standup</span></li>
+  <li><b>151</b><span>agent PRs merged in one sweep, none of them red</span></li>
+  <li><b>8.7x</b><span>more test files in our main service than in June</span></li>
+  <li><b>4x</b><span>slower median PR pipeline than in August</span></li>
+  <li><b>24%</b><span>cut from the unit-test job each time we added shards</span></li>
+</ul>
+
+Here is what I learned at each bottleneck. Most of it should apply to any team that runs agents this way.
+
+<h2><span className="num">1</span>Agents find every shared resource</h2>
+
+Running several agents at once feels free. It isn't. I run a handful of Claude Code sessions at a time, each in its own git worktree on its own ticket. Each one wants to build and test before it opens a PR. With several of those checks running at once, my 10-core laptop hit a load average of 31.
+
+<LockFigure />
+
+The fixes are the same ones you'd use for any shared system:
+
+- **Limit the heavy work, not the agents.** A machine-wide lock lets one heavy check run at a time. Agents still read and write code in parallel. They only take turns for the expensive part.
+- **Make the fast path the default.** The default test command is the quick one. The full build runs in CI, not before every push.
+- **Give throwaway resources an expiry.** Our tests create scratch databases, and about 55 test runners never cleaned theirs up. Now one helper creates every test database with an expiry stamp, a sweep deletes the old ones, and a check blocks any other way of creating one.
+
+The rule I took away: anything an agent can create, it will create hundreds of times. Give it a limit or an expiry first.
+
+<h2><span className="num">2</span>Put maintenance on a schedule</h2>
+
+Some work never gets a ticket: dead code, stale comments, loose types, logs that say nothing. Nobody owns it, so it piles up. Since late July, scheduled Claude Code agents run in the cloud, each on its own day with one kind of cleanup.
+
+<WeekFigure />
+
+An eighth agent posts our standup every weekday: what merged, what deployed, and the two most urgent issues. Nobody writes it by hand anymore.
+
+The schedule was the easy part. The prompts matter more. Every routine follows the same five rules:
+
+1. Finish your open PRs before you open new ones.
+2. Only say "tests pass" if you ran them.
+3. Keep PRs small, and label them.
+4. Wait for the review bots, then fix or answer every comment.
+5. Post one summary to Slack, not one per PR.
+
+By my estimate from branch names, these agents have opened about 440 PRs and merged about 350. Together they deleted more code than they added.
+
+<h2><span className="num">3</span>Agents start work. Someone has to finish it.</h2>
+
+Rule 1 came from a mistake. Agents are good at opening PRs and bad at finishing them. By late October, 218 agent PRs were open. Each one was small and probably fine. Together they were a backlog nobody wanted to review.
+
+So I asked an agent to merge the safe ones, with a strict bar: green CI, the review bot's top score on the latest commit, every comment resolved, and no migrations or infrastructure changes. About 25 of the PRs were hundreds of commits behind main, and it rebuilt them without a force push.
+
+<SweepFigure />
+
+It merged 151 across 9 repos, flagged 46 to close, skipped 6, and left 15 for me.
+
+The routines carry a stricter bar for queuing their own PRs: deletions only, at most 10 files and 300 lines, approved by the review bot on the latest commit, every comment answered, no overlap with other open PRs, and no changes to CI, infrastructure, or dependencies. Anything that changes behavior goes to a person.
+
+<h2><span className="num">4</span>Write the rules down once</h2>
+
+Every agent and every reviewer reads its own instructions. Left alone, those drift apart. So I write each rule once and reuse it everywhere.
+
+For ticket work, one skill takes a Linear ticket to a reviewed PR. It confirms the root cause before it touches code, writes a failing test and then the fix, runs the checks, and works through every bot comment. It stops and asks a person about migrations, production data, security, or a cause it can't confirm.
+
+For review, bots go first: Greptile, Copilot, and CodeQL. Each one reads its own config file. We had a long list of database mistakes collected from past fixes, so I wrote it once as a checklist and generated it into each tool's config, across 6 repos.
+
+<RulesFigure />
+
+Teammates built the rest of the line:
+
+- Greptile can approve a PR that scores 5 out of 5.
+- A merge queue runs the full check suite before each merge.
+- A release train deploys the newest builds to a test environment every couple of hours and runs the integration tests.
+- After each merge, a job creates any missing feature flags in Amplitude.
+
+Production is still a person clicking a button.
+
+<h2><span className="num">5</span>CI is the new bottleneck</h2>
+
+Agents write tests because we tell them to. Every skill says test first. In five months, our main service went from 314 test files to 2,718. Over the same stretch, the median PR pipeline got about 4x slower.
+
+<CiFigure />
+
+Three things helped:
+
+- **Shard by memory, and write the trigger down.** Our unit tests are split across parallel CI machines, called shards. By October, all 4 shards were close to their 4 GB memory limit, and one more test file crashed a shard three runs in a row. Going to 6 shards cut the median unit-test job from 11.3 to 8.6 minutes. I left a rule in the config: add shards again once memory passes about 3.2 GB. In November it did, and 8 shards cut the job from 11.8 to 9.0 minutes. That last number is about one day of data.
+- **Run serial suites in parallel.** One integration suite ran its files one at a time. Running them in parallel cut its job by more than half, with the same tests.
+- **Fix flaky tests early.** A red build that isn't your fault costs a full rerun.
+
+<ShardsFigure />
+
+Teammates also moved the database tests into their own job and parallelized lint.
+
+Each shard increase bought back about a quarter of the job. The suite still grew faster. Shards cut time in a straight line, and agents don't add tests in a straight line. More machines buy time, but they don't change the trend.
+
+## What's next
+
+- **Make each test cheaper.** The bigger win is how much each test loads before it runs, not how many machines run it.
+- **Finish what the routines start.** Opening PRs is cheap. Merging them still falls on a person.
+- **Let tickets start agents.** Today a person picks up the ticket. Next, a new ticket should start the agent itself.
+
+## If you're starting out
+
+1. **Guard shared resources first.** Limit heavy work, make the fast path the default, and give everything an agent creates an expiry.
+2. **Write the merge rule down.** Decide which PRs an agent may queue on its own and which always go to a person. No "tests pass" without a run.
+3. **Track CI every week.** If agents write your tests, the suite will grow faster than you expect. Shard by memory, and leave the trigger in the config so the next person knows when to act.

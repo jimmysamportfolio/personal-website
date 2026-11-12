@@ -1,65 +1,50 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Hanken_Grotesk, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/layout/ThemeProvider";
-import type React from "react";
-import { Toaster } from "sonner"
-import { crimsonPro } from "@/lib/fonts";
-import { SiteNavbar } from "@/components/layout/SiteNavbar";
+
+const serif = Source_Serif_4({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
+const sans = Hanken_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630, alt: "Jimmy Sam" };
+
+const description =
+  "Founding engineer at Cedar, building AI agents that help exceptional teams hire through their network.";
 
 export const metadata: Metadata = {
-  title: {
-    template: "%s | Jimmy Sam",
-    default: "Jimmy Sam",
-  },
-  description:
-    "Jimmy's Software Engineering Portfolio - showcasing software engineering, AI, and startup projects.",
-  keywords: [
-    "Jimmy",
-    "Sam",
-    "Portfolio",
-    "Software",
-    "Engineering",
-    "AI",
-  ],
+  metadataBase: new URL("https://jimmysam.ca"),
+  title: { default: "Jimmy Sam", template: "%s · Jimmy Sam" },
+  description,
   openGraph: {
-    title: "Jimmy's Portfolio",
-    description:
-      "Software engineering, AI, and startup projects by Jimmy Sam.",
-    siteName: "Jimmy's Portfolio",
+    title: "Jimmy Sam",
+    description,
+    url: "/",
+    siteName: "Jimmy Sam",
     locale: "en_US",
     type: "website",
+    images: [OG_IMAGE],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Jimmy's Portfolio",
-    description: "Software engineering, AI, and startup projects by Jimmy Sam.",
-  },
+  twitter: { card: "summary_large_image", title: "Jimmy Sam", description, images: [OG_IMAGE.url] },
 };
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  themeColor: "#f6f7f6",
+  colorScheme: "light",
+};
 
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${crimsonPro.className} ${crimsonPro.variable} font-sans antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          forcedTheme="light"
-          disableTransitionOnChange
-        >
-          <div className="relative z-20">
-            <SiteNavbar />
-            <div className="max-w-[571px] px-6 mx-0 sm:px-0 sm:mx-auto mt-4 mb-8 w-full tracking-tight">{children}</div>
-          </div>
-          <Toaster richColors position="bottom-center"/>
-        </ThemeProvider>
-      </body>
+    <html lang="en" className={`${serif.variable} ${sans.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
