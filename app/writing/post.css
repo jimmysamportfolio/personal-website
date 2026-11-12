@@ -1,0 +1,129 @@
+/* Writing: long-form posts with animated figures. Everything is scoped under .post. */
+.post{ max-width: 688px; margin: 0 auto; padding: clamp(56px, 10vh, 96px) 24px 220px; }
+.post .back{ margin-bottom: clamp(48px, 9vh, 80px); }
+.post article{ font-size: 17px; line-height: 1.65; }
+
+.post .eyebrow{ font-size: 14.5px; color: var(--ink-2); margin: 0; }
+.post h1{ font-family: var(--serif); font-optical-sizing: auto; font-weight: 400; font-size: clamp(38px, 6vw, 54px); line-height: 1.04; letter-spacing: -0.026em; color: var(--ink); margin: 12px 0 16px; }
+.post .dek{ font-size: 19px; line-height: 1.5; margin: 0 0 14px; max-width: 32em; }
+.post .byline{ font-size: 14.5px; color: var(--ink-3); margin: 0; }
+
+.post h2{ display: flex; gap: 10px; font-size: 21px; line-height: 1.3; font-weight: 600; letter-spacing: -0.012em; color: var(--ink); margin: 60px 0 14px; }
+.post h2 .num{ color: var(--ink-3); font-weight: 400; font-variant-numeric: tabular-nums; }
+.post p{ margin: 0 0 16px; }
+.post strong{ color: var(--ink); font-weight: 600; }
+.post ul, .post ol{ margin: 0 0 18px; padding-left: 1.25em; }
+.post li{ margin: 0 0 9px; padding-left: 2px; }
+.post li::marker{ color: var(--ink-3); }
+.post article a{ color: var(--ink); text-decoration: underline; text-decoration-color: var(--ink-4); text-underline-offset: 3px; }
+
+.post .asof{ font-size: 14px; color: var(--ink-3); margin: 36px 0 14px; }
+.post .stats{ list-style: none; padding: 0; margin: 0 0 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.post .stats li{ margin: 0; padding: 0; }
+.post .stats b{ display: block; font-family: var(--serif); font-weight: 400; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.post .stats span{ display: block; font-size: 14.5px; line-height: 1.45; margin-top: 6px; }
+
+/* Figures */
+.post figure{ margin: 34px 0 38px; }
+.post .frame{ background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 22px 20px; overflow-x: auto; }
+.post .inner{ position: relative; min-width: 520px; }
+.post .frame svg{ display: block; width: 100%; height: auto; overflow: visible; }
+.post figcaption{ font-size: 14px; line-height: 1.5; color: var(--ink-3); margin-top: 12px; max-width: 36em; }
+.post svg text{ font-family: var(--sans); }
+.post .lbl{ font-size: 12.5px; fill: var(--ink-2); }
+.post .lbl.strong{ fill: var(--ink); font-weight: 600; }
+.post .small{ font-size: 12px; fill: var(--ink-3); }
+.post .wire{ fill: none; stroke: var(--ink-5); stroke-width: 1.5; }
+.post .card{ fill: var(--card); stroke: var(--rule); stroke-width: 1; }
+.post .chip{ fill: var(--accent); }
+
+/* Factory line */
+.post .st{ fill: var(--card); stroke: var(--ink-3); stroke-width: 1.25; }
+.post .st.ci{ stroke: var(--accent); stroke-width: 1.5; transition: fill .2s; }
+.post .st.ci.busy{ fill: var(--accent-wash); }
+.post .st.prod{ fill: var(--ink); stroke: var(--ink); }
+.post .ci-bar{ fill: var(--accent); }
+
+/* Lock */
+.post .track{ fill: var(--wash); }
+.post .fill.write{ fill: var(--ink-5); }
+.post .fill.check{ fill: var(--accent); }
+.post .state{ font-size: 12.5px; fill: var(--ink-3); }
+.post .state.wait{ fill: var(--ink-2); }
+.post .state.check{ fill: var(--ink); font-weight: 600; }
+.post .rail{ stroke: var(--rule); stroke-width: 1; }
+.post .lock-body{ fill: var(--ink); }
+.post .lock-shackle{ fill: none; stroke: var(--ink); stroke-width: 1.6; }
+
+/* Week */
+.post .col{ fill: transparent; transition: fill .3s var(--ease); }
+.post .col.on{ fill: var(--wash); }
+.post .dh{ font-size: 12.5px; fill: var(--ink-2); text-anchor: middle; }
+.post .strip{ fill: var(--accent-wash); }
+.post .strip-t{ font-size: 12px; fill: var(--ink); }
+.post .ct{ font-size: 11.5px; fill: var(--ink); text-anchor: middle; }
+.post .off{ font-size: 11.5px; fill: var(--ink-3); text-anchor: middle; }
+.post .drop{ animation: post-drop 1.3s var(--ease) both; }
+@keyframes post-drop{ from{ opacity: 0; transform: translateY(-6px); } 25%{ opacity: 1; } to{ opacity: 0; transform: translateY(14px); } }
+
+/* Sweep */
+.post .cell{ transition: opacity .2s; }
+.post .cell.open{ fill: none; stroke: var(--ink-5); stroke-width: 1; }
+.post .cell.merged{ fill: var(--accent); }
+.post .cell.close{ fill: var(--ink-4); }
+.post .cell.skip{ fill: var(--ink-5); }
+.post .cell.left{ fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.post .dim{ opacity: .25; }
+.post .lg{ cursor: default; transition: opacity .2s; }
+.post .lg-n{ font-size: 15px; font-weight: 600; fill: var(--ink); font-variant-numeric: tabular-nums; }
+.post .lg-l{ font-size: 13px; fill: var(--ink-2); }
+
+/* Rules */
+.post .wires path{ fill: none; stroke: var(--ink-5); stroke-width: 1.25; }
+.post .pulses path{ fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 16 184; stroke-dashoffset: 200; animation: post-pulse 2.8s linear infinite; }
+.post .pulses .h2{ animation-delay: -1.4s; }
+@keyframes post-pulse{ from{ stroke-dashoffset: 200; } to{ stroke-dashoffset: 0; } }
+.post .ct-b{ font-size: 13px; font-weight: 600; fill: var(--ink); }
+.post .ct-n{ font-size: 13px; fill: var(--ink); }
+
+/* CI charts */
+.post .charts{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; min-width: 0; }
+.post .chart-box{ position: relative; }
+.post .chart-h{ font-size: 13.5px; font-weight: 500; color: var(--ink); margin: 0 0 4px; }
+.post .grid{ stroke: var(--wash); stroke-width: 1; }
+.post .axis{ stroke: var(--ink-5); stroke-width: 1; }
+.post .ax{ font-size: 10.5px; fill: var(--ink-3); font-variant-numeric: tabular-nums; }
+.post .ya{ text-anchor: end; }
+.post .xa{ text-anchor: middle; }
+.post .ev{ stroke: var(--ink-4); stroke-width: 1; }
+.post .ev-t{ font-size: 10.5px; fill: var(--ink-2); text-anchor: end; }
+.post .line{ fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.post .pt{ fill: var(--accent); stroke: var(--card); stroke-width: 2; transition: r .15s; }
+.post .pt.on{ r: 5.5; }
+.post .dl{ font-size: 11.5px; font-weight: 600; fill: var(--ink); font-variant-numeric: tabular-nums; }
+.post .cross{ stroke: var(--ink-4); stroke-width: 1; opacity: 0; }
+.post .cross.on{ opacity: 1; }
+.post .hit{ fill: transparent; }
+.post .chart-box svg:focus-visible{ outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
+
+/* Shards */
+.post .bar{ fill: var(--dot); }
+.post .bar.oom{ fill: var(--ink); }
+.post .limit{ stroke: var(--ink-2); stroke-width: 1.25; }
+.post .trig{ stroke: var(--accent); stroke-width: 1.25; transition: stroke-width .2s; }
+.post .trigger.on .trig{ stroke-width: 2.5; }
+.post .trigger.on .trig-t{ fill: var(--ink); font-weight: 600; }
+.post .sh-n{ font-size: 15px; font-weight: 600; fill: var(--ink); }
+
+/* Tooltip */
+.post .tip{ position: absolute; left: 0; top: 0; transform: translate(-50%, -100%); pointer-events: none; background: var(--ink); color: var(--bg); font-size: 12.5px; line-height: 1.35; padding: 6px 9px; border-radius: 7px; white-space: nowrap; opacity: 0; transition: opacity .15s; z-index: 2; }
+.post .tip b{ font-weight: 600; margin-left: 6px; }
+.post .tip.on{ opacity: 1; }
+
+@media (max-width: 640px){
+  .post .stats{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .post .stats b{ font-size: 28px; }
+  .post .charts{ grid-template-columns: minmax(0, 1fr); }
+  .post .dek{ font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce){ .post .pulses{ display: none; } }
