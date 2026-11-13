@@ -69,9 +69,11 @@ export default function Home() {
           <h1 className="rise" style={{ "--i": 0 } as React.CSSProperties}>Jimmy Sam</h1>
           <div className="intro">
             <p className="rise" style={{ "--i": 1 } as React.CSSProperties}>
-              I&apos;m a founding engineer at <b>Cedar</b>. We&apos;re building an AI agent that helps talent-obsessed companies hire through referrals at scale.
+              I&apos;m a founding engineer at <b>Cedar</b>, backed by a16z. We build AI agents that help exceptional teams hire through the people they already trust.
             </p>
-            <p className="rise" style={{ "--i": 2 } as React.CSSProperties}>Most of my time goes to making a small team ship like a big one.</p>
+            <p className="rise" style={{ "--i": 2 } as React.CSSProperties}>
+              My job is to make bets, ship them fast, and keep what works. I&nbsp;get to do it with some of the fastest-growing companies in the world, alongside people I love building with.
+            </p>
           </div>
           <ul className="pills rise" style={{ "--i": 3 } as React.CSSProperties}>
             <li><EmailPill address="jimmygsam@gmail.com" /></li>
