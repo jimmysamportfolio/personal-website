@@ -9,7 +9,7 @@ import "./home.css";
 type Row = { name: string; by?: string; meta: string; desc?: string; href: string; peek: string; external?: boolean };
 
 const WORK: Row[] = [
-  { name: "Cedar", by: "backed by a16z", meta: "2026 - now", desc: "Building AI agents that help exceptional teams hire through their network.", href: "https://www.getcedar.ai/", peek: "cedar", external: true },
+  { name: "Cedar", by: "backed by a16z speedrun", meta: "2026 - now", desc: "Building AI agents that help exceptional teams hire through their network.", href: "https://www.getcedar.ai/", peek: "cedar", external: true },
   { name: "Advizr", meta: "2025", desc: "Forward deployed engineer. Built a secure chatbot for a commercial real estate client.", href: "/project/advizr", peek: "advizr" },
 ];
 
@@ -69,7 +69,7 @@ export default function Home() {
           <h1 className="rise" style={{ "--i": 0 } as React.CSSProperties}>Jimmy Sam</h1>
           <div className="intro">
             <p className="rise" style={{ "--i": 1 } as React.CSSProperties}>
-              I&apos;m a founding engineer at <b>Cedar</b>, backed by a16z. We build AI agents that help exceptional teams hire through the people they already trust.
+              I&apos;m a founding engineer at <b>Cedar</b>, backed by a16z speedrun. We build AI agents that help exceptional teams hire through the people they already trust.
             </p>
             <p className="rise" style={{ "--i": 2 } as React.CSSProperties}>
               My job is to make bets, ship them fast, and keep what works. I&nbsp;get to do it with some of the fastest-growing companies in the world, alongside people I love building with.
