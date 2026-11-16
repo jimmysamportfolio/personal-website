@@ -12,7 +12,8 @@ const nextConfig = {
       { source: "/about", destination: "/", permanent: true },
       { source: "/writing", destination: "/#writing", permanent: false },
       { source: "/project", destination: "/#side", permanent: false },
-      { source: "/project/RAG-pipeline", destination: "/project/advizr", permanent: true },
+      { source: "/project/advizr", destination: "https://advizr.ca/", permanent: false },
+      { source: "/project/RAG-pipeline", destination: "https://advizr.ca/", permanent: false },
     ];
   },
 };
