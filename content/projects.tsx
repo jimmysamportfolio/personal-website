@@ -1,8 +1,5 @@
 import type { StaticImageData } from "next/image";
 import type { ReactNode } from "react";
-import advizrAnalytics from "./projects/advizr/portfolio-analytics.jpg";
-import advizrClauses from "./projects/advizr/clause-comparison.jpg";
-import advizrIngestion from "./projects/advizr/document-ingestion-end.jpg";
 import blueprintAudience from "./projects/blueprint/audience.jpg";
 import blueprintBooth from "./projects/blueprint/booth.jpg";
 import blueprintKeynote from "./projects/blueprint/keynote.jpg";
@@ -29,40 +26,6 @@ export type Project = {
 };
 
 export const PROJECTS: Project[] = [
-  {
-    slug: "advizr",
-    title: "Advizr",
-    kicker: "Work · 2025",
-    dek: "A secure chatbot for a commercial real estate client, built on a RAG pipeline over 100+ leases.",
-    facts: [["Role", "Forward deployed engineer"], ["Client", "Commercial real estate"], ["Stack", "Python, Pinecone, Gemini"]],
-    links: [{ label: "advizr.ca", href: "https://advizr.ca/" }],
-    blocks: [
-      { kind: "figure", image: advizrAnalytics, alt: "Portfolio analytics view with lease metrics and a sortable table of leases", caption: "Portfolio analytics. Client data is redacted.", wide: true },
-      {
-        kind: "text",
-        body: (
-          <>
-            <p>At Advizr I was a forward deployed engineer. I built a secure chatbot for a commercial real estate company with more than 100 leases, backed by a RAG pipeline over every lease. The code belongs to the client, so this page covers the design.</p>
-            <p>It had to do three things: answer a specific question (&ldquo;What&apos;s the holdover rate for Starbucks?&rdquo;), compare a clause across leases, and add up numbers across the whole portfolio. Each lease runs about 25,000 words, and a wrong answer on a legal document costs more than a slow one, so accuracy came first.</p>
-            <h2>Ingestion</h2>
-            <p>Leases are split by article and section instead of fixed token windows, and tiny leftover chunks are merged into the next one. Then each lease takes two paths. Enriched chunks are embedded with Gemini and stored in Pinecone. Key deal terms (rent, dates, parties, renewal options) are pulled into a typed schema and stored in SQLite.</p>
-          </>
-        ),
-      },
-      { kind: "figure", image: advizrIngestion, alt: "Diagram of the two ingestion paths", caption: "Two paths at ingestion: deal terms to SQLite, enriched chunks to Pinecone." },
-      {
-        kind: "text",
-        body: (
-          <>
-            <h2>Answering</h2>
-            <p>A router reads each question and picks a path. Document questions get vector search, reranking down to the best 10 passages, and an answer with sources and a confidence score. Portfolio questions become tool calls against SQLite.</p>
-            <p>I checked the embedding model with a small recall test built from question and answer pairs the client gave us.</p>
-          </>
-        ),
-      },
-      { kind: "figure", image: advizrClauses, alt: "Clause comparison table across selected leases", caption: "Clause comparison across selected leases." },
-    ],
-  },
   {
     slug: "nexus",
     title: "Nexus",

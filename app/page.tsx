@@ -10,7 +10,7 @@ type Row = { name: string; by?: string; meta: string; desc?: string; href: strin
 
 const WORK: Row[] = [
   { name: "Cedar", by: "backed by a16z speedrun", meta: "2026 - now", desc: "Building AI agents that help exceptional teams hire through their network.", href: "https://www.getcedar.ai/", peek: "cedar", external: true },
-  { name: "Advizr", meta: "2025", desc: "Forward deployed engineer. Built a secure chatbot for a commercial real estate client.", href: "/project/advizr", peek: "advizr" },
+  { name: "Advizr", meta: "2025", desc: "Forward deployed engineer. Built a secure chatbot for a commercial real estate client.", href: "https://advizr.ca/", peek: "advizr", external: true },
 ];
 
 const SIDE_QUESTS: Row[] = [
